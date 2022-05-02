@@ -10,6 +10,14 @@ public class Projekt_Artefakt implements Serializable {
     private String artefaktId;
     private double arbeitszeit;
 
+    public Projekt_Artefakt(String projektId,String artefaktId,double arbeitszeit){
+        this.projektId = projektId;
+        this.artefaktId = artefaktId;
+        this.arbeitszeit = arbeitszeit;
+    }
+
+    public Projekt_Artefakt(){}
+
     public String getProjektId() {
         return projektId;
     }
