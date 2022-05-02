@@ -1,7 +1,7 @@
 package de.fhbi.webbasedapps.projektsammlung.rest;
 
 import de.fhbi.webbasedapps.projektsammlung.classes.Projekt;
-import de.fhbi.webbasedapps.projektsammlung.errors.Error404;
+import de.fhbi.webbasedapps.projektsammlung.errors.*;
 
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
@@ -55,12 +55,14 @@ public class EndpointProjekt {
         if(projektToUpdate == null) {
             return Response.status(Response.Status.NOT_FOUND).entity(jsonb.toJson(Error404.getInstance())).build();
         } else {
-            projektToUpdate.setProjektStart(projekt.getProjektStart());
-            projektToUpdate.setKurzbeschreibung(projekt.getKurzbeschreibung());
-            projektToUpdate.setKurzbeschreibung(projekt.getKurzbeschreibung());
-            projektToUpdate.setLogo(projekt.getLogo());
-            projektToUpdate.setTitel(projekt.getTitel());
-            return Response.ok(jsonb.toJson(projekt)).build();
+            if(projekt == null) {
+                return Response.status(Response.Status.BAD_REQUEST).entity(jsonb.toJson(Error400.getInstance())).build();
+            }
+            if(projekt.getProjektStart() != 0) projektToUpdate.setProjektStart(projekt.getProjektStart());
+            if(projekt.getKurzbeschreibung() != null) projekt.setKurzbeschreibung(projekt.getKurzbeschreibung());
+            if(projekt.getLogo() != null) projektToUpdate.setLogo(projekt.getLogo());
+            if(projekt.getTitel() != null) projektToUpdate.setTitel(projekt.getTitel());
+            return Response.ok(jsonb.toJson(projektToUpdate)).build();
         }
     }
 
