@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.UUID;
 
-@Path("/Projekt_Artefakte")
+@Path("/projekt_artefakte")
 public class EndpointProjekt_Artefakt {
     private static ArrayList<Projekt_Artefakt> projektArtefakte = new ArrayList<>();
     private static Jsonb jsonb = JsonbBuilder.create(new JsonbConfig().withNullValues(true));
