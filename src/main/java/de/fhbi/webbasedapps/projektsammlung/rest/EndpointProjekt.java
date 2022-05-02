@@ -47,4 +47,32 @@ public class EndpointProjekt {
         return Response.ok(jsonb.toJson(projekt)).build();
     }
 
+    @PATCH
+    @Consumes("application/json")
+    @Produces("application/json")
+    public Response patchProject(Projekt projekt, @QueryParam("id") String id) {
+        Projekt projektToUpdate = projekte.stream().filter(p -> p.getId().equals(id)).findFirst().orElse(null);
+        if(projektToUpdate == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity(jsonb.toJson(Error404.getInstance())).build();
+        } else {
+            projektToUpdate.setProjektStart(projekt.getProjektStart());
+            projektToUpdate.setKurzbeschreibung(projekt.getKurzbeschreibung());
+            projektToUpdate.setKurzbeschreibung(projekt.getKurzbeschreibung());
+            projektToUpdate.setLogo(projekt.getLogo());
+            projektToUpdate.setTitel(projekt.getTitel());
+            return Response.ok(jsonb.toJson(projekt)).build();
+        }
+    }
+
+    @DELETE
+    @Produces("application/json")
+    public Response deleteProject(@QueryParam("id") String id) {
+        Projekt projektToDelete = projekte.stream().filter(p -> p.getId().equals(id)).findFirst().orElse(null);
+        if(projektToDelete == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity(jsonb.toJson(Error404.getInstance())).build();
+        } else {
+            projekte.remove(projektToDelete);
+            return Response.ok(jsonb.toJson(projektToDelete)).build();
+        }
+    }
 }
