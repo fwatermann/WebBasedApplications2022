@@ -72,7 +72,7 @@ public class EndpointProjekt {
             return Response.status(Response.Status.NOT_FOUND).entity(jsonb.toJson(Error404.getInstance())).build();
         } else {
             projekte.remove(projektToDelete);
-            return Response.ok(jsonb.toJson(projektToDelete)).build();
+            return Response.noContent().build();
         }
     }
 }
