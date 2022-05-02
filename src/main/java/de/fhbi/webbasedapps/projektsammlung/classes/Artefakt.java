@@ -12,6 +12,16 @@ public class Artefakt implements Serializable {
     private Aufgabenbereich aufgabenbereich;
     private long geplanteArbeitszeit;
 
+    public Artefakt(String id, String titel, String kurzbeschreibung, Aufgabenbereich aufgabenbereich, long geplanteArbeitszeit) {
+        this.id = id;
+        this.titel = titel;
+        this.kurzbeschreibung = kurzbeschreibung;
+        this.aufgabenbereich = aufgabenbereich;
+        this.geplanteArbeitszeit = geplanteArbeitszeit;
+    }
+
+    public Artefakt(){}
+
     public String getKurzbeschreibung() {
         return kurzbeschreibung;
     }
@@ -44,6 +54,10 @@ public class Artefakt implements Serializable {
 
     public void setTitel(String titel) {
         this.titel = titel;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getId() {

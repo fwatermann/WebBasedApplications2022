@@ -42,9 +42,13 @@ public class EndpointProjekt {
     @Consumes("application/json")
     @Produces("application/json")
     public Response postProject(Projekt projekt) {
-        projekt.setId(UUID.randomUUID().toString());
-        projekte.add(projekt);
-        return Response.ok(jsonb.toJson(projekt)).build();
+        if(projekt != null) {
+            projekt.setId(UUID.randomUUID().toString());
+            projekte.add(projekt);
+            return Response.ok(jsonb.toJson(projekt)).build();
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).entity(jsonb.toJson(Error400.getInstance())).build();
+        }
     }
 
     @PATCH
@@ -67,7 +71,6 @@ public class EndpointProjekt {
     }
 
     @DELETE
-    @Produces("application/json")
     public Response deleteProject(@QueryParam("id") String id) {
         Projekt projektToDelete = projekte.stream().filter(p -> p.getId().equals(id)).findFirst().orElse(null);
         if(projektToDelete == null) {
