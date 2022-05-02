@@ -10,6 +10,14 @@ public class Aufgabenbereich implements Serializable {
     private String titel;
     private String kurzbeschreibung;
 
+    public Aufgabenbereich(String id,String titel,String kurzbeschreibung){
+        this.id = id;
+        this.titel = titel;
+        this.kurzbeschreibung = kurzbeschreibung;
+    }
+
+    public Aufgabenbereich(){}
+
     public void setString(String titel) {
         this.titel = titel;
     }
@@ -31,5 +39,14 @@ public class Aufgabenbereich implements Serializable {
     public String getId() {
         return this.id;
     }
+
+    public void setId(String id){
+        this.id = id;
+    }
+
+    public void setTitel(String titel) {
+        this.titel = titel;
+    }
+
 
 }
