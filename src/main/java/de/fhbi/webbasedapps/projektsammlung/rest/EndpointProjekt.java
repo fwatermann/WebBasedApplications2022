@@ -1,17 +1,17 @@
 package de.fhbi.webbasedapps.projektsammlung.rest;
 
 import de.fhbi.webbasedapps.projektsammlung.classes.Projekt;
+import de.fhbi.webbasedapps.projektsammlung.errors.Error404;
 
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
 import java.util.ArrayList;
+import java.util.UUID;
 
-@Path("/projekt")
+@Path("/projekte")
 public class EndpointProjekt {
 
     private static ArrayList<Projekt> projekte = new ArrayList<>();
@@ -25,12 +25,26 @@ public class EndpointProjekt {
 
     @GET
     @Produces("application/json")
-    public String getProject(@QueryParam("id") String id) {
+    public Response getProject(@QueryParam("id") String id) {
         if(id == null) {
-            return jsonb.toJson(projekte);
+            return Response.ok(jsonb.toJson(projekte)).build();
         } else {
-            return jsonb.toJson(projekte.stream().filter(p -> p.getId().equals(id)).findFirst().orElse(new Projekt()));
+            Projekt projekt = projekte.stream().filter(p -> p.getId().equals(id)).findFirst().orElse(null);
+            if(projekt == null) {
+                return Response.status(Response.Status.NOT_FOUND).entity(jsonb.toJson(Error404.getInstance())).build();
+            } else {
+                return Response.ok(jsonb.toJson(projekt)).build();
+            }
         }
+    }
+
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    public Response postProject(Projekt projekt) {
+        projekt.setId(UUID.randomUUID().toString());
+        projekte.add(projekt);
+        return Response.ok(jsonb.toJson(projekt)).build();
     }
 
 }
