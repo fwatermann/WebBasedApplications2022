@@ -75,6 +75,7 @@ public class EndpointArtefakte {
     }
 
     @DELETE
+    @Produces("application/json")
     public Response deleteArtefakt(@QueryParam("id") String id) {
         Artefakt artefakt = artefakte.stream().filter(p -> p.getId().equals(id)).findFirst().orElse(null);
         if(artefakt == null) {

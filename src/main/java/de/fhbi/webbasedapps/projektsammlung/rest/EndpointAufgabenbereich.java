@@ -3,6 +3,7 @@ package de.fhbi.webbasedapps.projektsammlung.rest;
 import de.fhbi.webbasedapps.projektsammlung.classes.Aufgabenbereich;
 import de.fhbi.webbasedapps.projektsammlung.errors.Error404;
 
+import javax.annotation.PreDestroy;
 import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
 import javax.json.bind.Jsonb;
@@ -65,6 +66,7 @@ public class EndpointAufgabenbereich {
     }
 
     @DELETE
+    @Produces("application/json")
     public Response deleteAufgabenbereich(@QueryParam("id") String id){
         Aufgabenbereich aufgabenbereichToDelete = aufgabenbereiche.stream().filter(a->a.getId().equals(id)).findFirst().orElse(null);
         if(aufgabenbereichToDelete == null){

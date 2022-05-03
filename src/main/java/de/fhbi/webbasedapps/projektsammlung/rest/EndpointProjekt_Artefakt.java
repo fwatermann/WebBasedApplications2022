@@ -12,6 +12,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Path("/projekt_artefakte")
 public class EndpointProjekt_Artefakt {
@@ -19,46 +20,36 @@ public class EndpointProjekt_Artefakt {
     private static Jsonb jsonb = JsonbBuilder.create(new JsonbConfig().withNullValues(true));
 
     static {
-        projektArtefakte.add(new Projekt_Artefakt("1","1",50.0));
-        projektArtefakte.add(new Projekt_Artefakt("1","2",34.0));
-        projektArtefakte.add(new Projekt_Artefakt("2","3",156.0));
+        projektArtefakte.add(new Projekt_Artefakt("1", "1", 50.0));
+        projektArtefakte.add(new Projekt_Artefakt("1", "2", 34.0));
+        projektArtefakte.add(new Projekt_Artefakt("2", "3", 156.0));
     }
 
     @GET
     @Produces("application/json")
-    public Response getProject_Artefact(@QueryParam("projektid") String projektId,@QueryParam("artefaktid")String artefaktId) {
-        if(projektId == null) {
-            Projekt_Artefakt projektArtefakt = projektArtefakte.stream().filter(pa -> pa.getProjektId().equals(projektId)).findFirst().orElse(null);
-            if(projektArtefakt == null) {
-                return Response.status(Response.Status.NOT_FOUND).entity(jsonb.toJson(Error404.getInstance())).build();
-            } else {
-                return Response.ok(jsonb.toJson(projektArtefakt)).build();
-            }
-        }
-        if(artefaktId == null){
-            Projekt_Artefakt projektArtefakt = projektArtefakte.stream().filter(pa -> pa.getArtefaktId().equals(artefaktId)).findFirst().orElse(null);
-            if(projektArtefakt == null) {
-                return Response.status(Response.Status.NOT_FOUND).entity(jsonb.toJson(Error404.getInstance())).build();
-            } else {
-                return Response.ok(jsonb.toJson(projektArtefakt)).build();
-            }
-        }
-        if(artefaktId == null && projektId == null){
+    public Response getProject_Artefact(@QueryParam("projektId") String projektId, @QueryParam("artefaktId") String artefaktId) {
+        if (artefaktId == null && projektId == null) {
             return Response.ok(jsonb.toJson(projektArtefakte)).build();
         }
-        Projekt_Artefakt projektArtefakt = projektArtefakte.stream().filter(pa -> pa.getProjektId().equals(projektId) && pa.getArtefaktId().equals(artefaktId)).findFirst().orElse(null);
-        if(projektArtefakt == null) {
-            return Response.status(Response.Status.NOT_FOUND).entity(jsonb.toJson(Error404.getInstance())).build();
-        } else {
-            return Response.ok(jsonb.toJson(projektArtefakt)).build();
+        if(artefaktId != null && projektId != null){
+            Projekt_Artefakt projekt_artefakt = projektArtefakte.stream().filter(pa -> pa.getProjektId().equals(projektId) && pa.getArtefaktId().equals(artefaktId)).findFirst().orElse(null);
+            if (projekt_artefakt == null) {
+                return Response.status(Response.Status.NOT_FOUND).entity(jsonb.toJson(Error404.getInstance())).build();
+            } else {
+                return Response.ok(jsonb.toJson(projekt_artefakt)).build();
+            }
         }
+        if (projektId == null) {
+            return Response.ok(jsonb.toJson(projektArtefakte.stream().filter(pa -> pa.getArtefaktId().equals(artefaktId)).collect(Collectors.toList()))).build();
+        }
+        return Response.ok(jsonb.toJson(projektArtefakte.stream().filter(pa -> pa.getProjektId().equals(projektId)).collect(Collectors.toList()))).build();
     }
 
     @POST
     @Consumes("application/json")
     @Produces("application/json")
     public Response postProject_Artefact(Projekt_Artefakt projekt_artefakt) {
-        if(projekt_artefakt != null) {
+        if (projekt_artefakt != null) {
             projektArtefakte.add(projekt_artefakt);
             return Response.ok(jsonb.toJson(projekt_artefakt)).build();
         } else {
@@ -69,24 +60,29 @@ public class EndpointProjekt_Artefakt {
     @PATCH
     @Consumes("application/json")
     @Produces("application/json")
-    public Response patchProject_Artefact(Projekt_Artefakt projekt_artefakt, @QueryParam("projektid") String projektid,@QueryParam("artefactid") String artefactid) {
+    public Response patchProject_Artefact(Projekt_Artefakt projekt_artefakt, @QueryParam("projektId") String projektid, @QueryParam("artefaktId") String artefactid) {
         Projekt_Artefakt projekt_artefaktToUpdate = projektArtefakte.stream().filter(pa -> pa.getProjektId().equals(projektid) && pa.getArtefaktId().equals(artefactid)).findFirst().orElse(null);
-        if(projekt_artefaktToUpdate == null) {
+        if (projekt_artefaktToUpdate == null) {
             return Response.status(Response.Status.NOT_FOUND).entity(jsonb.toJson(Error404.getInstance())).build();
         } else {
-            if(projekt_artefakt == null) {
+            if (projekt_artefakt == null) {
                 return Response.status(Response.Status.BAD_REQUEST).entity(jsonb.toJson(Error400.getInstance())).build();
             }
-            if(projekt_artefakt.getArtefaktId() != null) projekt_artefaktToUpdate.setArtefaktId(projekt_artefakt.getArtefaktId());
-            if(projekt_artefakt.getProjektId() != null) projekt_artefaktToUpdate.setProjektId(projekt_artefakt.getProjektId());
+            if (projekt_artefakt.getArtefaktId() != null)
+                projekt_artefaktToUpdate.setArtefaktId(projekt_artefakt.getArtefaktId());
+            if (projekt_artefakt.getProjektId() != null)
+                projekt_artefaktToUpdate.setProjektId(projekt_artefakt.getProjektId());
+            if(projekt_artefakt.getArbeitszeit() != 0)
+                projekt_artefaktToUpdate.setArbeitszeit(projekt_artefakt.getArbeitszeit());
             return Response.ok(jsonb.toJson(projekt_artefaktToUpdate)).build();
         }
     }
 
     @DELETE
-    public Response deleteProject_Artefact(@QueryParam("projektid") String projektid,@QueryParam("artefaktid") String artefaktid ) {
+    @Produces("application/json")
+    public Response deleteProject_Artefact(@QueryParam("projektId") String projektid, @QueryParam("artefaktId") String artefaktid) {
         Projekt_Artefakt projekt_artefaktToDelete = projektArtefakte.stream().filter(pa -> pa.getProjektId().equals(projektid) && pa.getArtefaktId().equals(artefaktid)).findFirst().orElse(null);
-        if(projekt_artefaktToDelete == null) {
+        if (projekt_artefaktToDelete == null) {
             return Response.status(Response.Status.NOT_FOUND).entity(jsonb.toJson(Error404.getInstance())).build();
         } else {
             projektArtefakte.remove(projekt_artefaktToDelete);
