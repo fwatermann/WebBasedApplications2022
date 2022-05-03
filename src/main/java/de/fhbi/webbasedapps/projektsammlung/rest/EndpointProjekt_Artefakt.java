@@ -27,15 +27,30 @@ public class EndpointProjekt_Artefakt {
     @GET
     @Produces("application/json")
     public Response getProject_Artefact(@QueryParam("projektid") String projektId,@QueryParam("artefaktid")String artefaktId) {
-        if(projektId == null || artefaktId == null) {
-            return Response.ok(jsonb.toJson(projektArtefakte)).build();
-        } else {
-            Projekt_Artefakt projekt = projektArtefakte.stream().filter(pa -> pa.getProjektId().equals(projektId) && pa.getArtefaktId().equals(artefaktId)).findFirst().orElse(null);
-            if(projektArtefakte == null) {
+        if(projektId == null) {
+            Projekt_Artefakt projektArtefakt = projektArtefakte.stream().filter(pa -> pa.getProjektId().equals(projektId)).findFirst().orElse(null);
+            if(projektArtefakt == null) {
                 return Response.status(Response.Status.NOT_FOUND).entity(jsonb.toJson(Error404.getInstance())).build();
             } else {
-                return Response.ok(jsonb.toJson(projektArtefakte)).build();
+                return Response.ok(jsonb.toJson(projektArtefakt)).build();
             }
+        }
+        if(artefaktId == null){
+            Projekt_Artefakt projektArtefakt = projektArtefakte.stream().filter(pa -> pa.getArtefaktId().equals(artefaktId)).findFirst().orElse(null);
+            if(projektArtefakt == null) {
+                return Response.status(Response.Status.NOT_FOUND).entity(jsonb.toJson(Error404.getInstance())).build();
+            } else {
+                return Response.ok(jsonb.toJson(projektArtefakt)).build();
+            }
+        }
+        if(artefaktId == null && projektId == null){
+            return Response.ok(jsonb.toJson(projektArtefakte)).build();
+        }
+        Projekt_Artefakt projektArtefakt = projektArtefakte.stream().filter(pa -> pa.getProjektId().equals(projektId) && pa.getArtefaktId().equals(artefaktId)).findFirst().orElse(null);
+        if(projektArtefakt == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity(jsonb.toJson(Error404.getInstance())).build();
+        } else {
+            return Response.ok(jsonb.toJson(projektArtefakt)).build();
         }
     }
 
