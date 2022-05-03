@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.UUID;
 
+@Path("/aufgabenbereiche")
 public class EndpointAufgabenbereich {
     private static ArrayList<Aufgabenbereich> aufgabenbereiche = new ArrayList<>();
     private static Jsonb jsonb = JsonbBuilder.create(new JsonbConfig().withNullValues(true));
@@ -19,7 +20,7 @@ public class EndpointAufgabenbereich {
     static {
         aufgabenbereiche.add(new Aufgabenbereich("1","Aufgabenbereich 1", "Das ist der erste Aufgabenbereich"));
         aufgabenbereiche.add(new Aufgabenbereich("2","Aufgabenbereich 2", "Das ist der zweite Aufgabenbereich"));
-        aufgabenbereiche.add(new Aufgabenbereich("1","Aufgabenbereich 1", "Das ist der dritte Aufgabenbereich"));
+        aufgabenbereiche.add(new Aufgabenbereich("3","Aufgabenbereich 3", "Das ist der dritte Aufgabenbereich"));
     }
 
     @GET
@@ -47,8 +48,8 @@ public class EndpointAufgabenbereich {
     }
 
     @PATCH
-    @Consumes
-    @Produces
+    @Consumes("application/json")
+    @Produces("application/json")
     public Response patchAufgabenbereich(Aufgabenbereich aufgabenbereich,@QueryParam("id") String id){
         Aufgabenbereich aufgabenbereichToUpdate = aufgabenbereiche.stream().filter(a->a.getId().equals(id)).findFirst().orElse(null);
         if(aufgabenbereichToUpdate == null){
