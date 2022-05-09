@@ -28,10 +28,10 @@ public class Projekt implements Serializable {
     private Collection<Aufgabenbereich> aufgabenbereiche = new ArrayList<>();
 
     @ManyToMany
-    @JoinTable(name = "Projekt_artefakte",
-            joinColumns = @JoinColumn(name = "projekt_id"),
-            inverseJoinColumns = @JoinColumn(name = "artefakt_id"))
-    private Collection<Artefakt> artefakte = new ArrayList<>();
+    @JoinTable(name = "Projekt_Artefakte",
+        joinColumns = @JoinColumn(name = "projekt_id"),
+        inverseJoinColumns = @JoinColumn(name = "artefakt_id"))
+    private Collection<Projekt_ArtefaktRef> artefakte = new ArrayList<>();
 
     public Projekt(String id, String titel, String kurzbeschreibung, String logo, long projektStart) {
         this.id = id;
@@ -63,7 +63,7 @@ public class Projekt implements Serializable {
         return projektStart;
     }
 
-    public Collection<Artefakt> getArtefakte() {
+    public Collection<Projekt_ArtefaktRef> getArtefakte() {
         return artefakte;
     }
 
@@ -97,7 +97,7 @@ public class Projekt implements Serializable {
         this.aufgabenbereiche = aufgabenbereiches;
     }
 
-    public void setArtefakte(Collection<Artefakt> artefakte) {
+    public void setArtefakte(Collection<Projekt_ArtefaktRef> artefakte) {
         this.artefakte = artefakte;
     }
 
