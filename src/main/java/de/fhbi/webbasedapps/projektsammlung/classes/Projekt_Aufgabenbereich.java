@@ -1,12 +1,23 @@
 package de.fhbi.webbasedapps.projektsammlung.classes;
 
-import java.io.Serializable;
+import de.fhbi.webbasedapps.projektsammlung.keys.PK_Projekt_Artefakt;
+import de.fhbi.webbasedapps.projektsammlung.keys.PK_Projekt_Aufgabenbereich;
 
+import javax.persistence.*;
+import java.io.Serializable;
+@Entity
+@Table(name = "Projekt_Aufgabenbereich")
+@IdClass(PK_Projekt_Aufgabenbereich.class)
+@NamedQueries({
+        @NamedQuery(name = "Projekt_Aufgabenbereich.findAll", query = "SELECT p FROM Projekt_Aufgabenbereich p WHERE p.projektId = :projektId"),
+})
 public class Projekt_Aufgabenbereich implements Serializable {
 
     public static final long serialVersionUID = 1L;
 
+    @Id
     private String projektId;
+    @Id
     private String aufgabenbereichId;
 
     public Projekt_Aufgabenbereich(String projektId, String aufgabenbereichId) {

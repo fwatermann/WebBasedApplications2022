@@ -22,10 +22,10 @@ public class Projekt implements Serializable {
     private long projektStart; //Unix-Timestamp in MS
 
     @ManyToMany
-    @JoinTable(name = "Projekt_aufgabenbereiches",
-            joinColumns = @JoinColumn(name = "projekt_id"),
-            inverseJoinColumns = @JoinColumn(name = "aufgabenbereiches_id"))
-    private Collection<Aufgabenbereich> aufgabenbereiches = new ArrayList<>();
+    @JoinTable(name = "Projekt_Aufgabenbereich",
+            joinColumns = @JoinColumn(name = "projektId"),
+            inverseJoinColumns = @JoinColumn(name = "aufgabenbereichId"))
+    private Collection<Aufgabenbereich> aufgabenbereiche = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "Projekt_artefakte",
@@ -67,8 +67,8 @@ public class Projekt implements Serializable {
         return artefakte;
     }
 
-    public Collection<Aufgabenbereich> getAufgabenbereiches() {
-        return aufgabenbereiches;
+    public Collection<Aufgabenbereich> getAufgabenbereiche() {
+        return aufgabenbereiche;
     }
 
     public void setId(String id) {
@@ -93,8 +93,8 @@ public class Projekt implements Serializable {
         this.projektStart = projektStart;
     }
 
-    public void setAufgabenbereiches(Collection<Aufgabenbereich> aufgabenbereiches) {
-        this.aufgabenbereiches = aufgabenbereiches;
+    public void setAufgabenbereiche(Collection<Aufgabenbereich> aufgabenbereiches) {
+        this.aufgabenbereiche = aufgabenbereiches;
     }
 
     public void setArtefakte(Collection<Artefakt> artefakte) {
