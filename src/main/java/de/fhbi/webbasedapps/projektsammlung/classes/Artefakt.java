@@ -1,15 +1,26 @@
 package de.fhbi.webbasedapps.projektsammlung.classes;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
+@Table(name = "Artefakt")
+@NamedQueries({
+        @NamedQuery(name = "Artefakt.findAll", query = "SELECT a FROM Artefakt a"),
+})
 public class Artefakt implements Serializable {
 
     public static final long serialVersionUID = 1L;
 
+    @Id
     private String id;
     private String titel;
     private String kurzbeschreibung;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "aufgabenbereich_id", nullable = false)
     private Aufgabenbereich aufgabenbereich;
+
     private long geplanteArbeitszeit;
 
     public Artefakt(String id, String titel, String kurzbeschreibung, Aufgabenbereich aufgabenbereich, long geplanteArbeitszeit) {

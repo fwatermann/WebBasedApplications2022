@@ -3,49 +3,67 @@ package de.fhbi.webbasedapps.projektsammlung.rest;
 import de.fhbi.webbasedapps.projektsammlung.classes.Projekt;
 import de.fhbi.webbasedapps.projektsammlung.errors.*;
 
+import javax.annotation.Resource;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
 import java.util.UUID;
 
+@Stateless
+@TransactionManagement(TransactionManagementType.BEAN)
 @Path("/projekte")
 public class EndpointProjekt {
 
-    private static ArrayList<Projekt> projekte = new ArrayList<>();
     private static Jsonb jsonb = JsonbBuilder.create(new JsonbConfig().withNullValues(true));
 
-    static {
-        projekte.add(new Projekt("1", "Projekt 1", "Das ist das erste Projekt", "/images/projekt1.jpg", 0));
-        projekte.add(new Projekt("2", "Projekt 2", "Das ist das zweite Projekt", "/images/projekt2.jpg", 0));
-        projekte.add(new Projekt("3", "Projekt 3", "Das ist das dritte Projekt", "/images/projekt3.jpg", 0));
+    @PersistenceContext(unitName = "JPA_ProjektePU")
+    public EntityManager entityManager;
+
+    @Resource
+    private UserTransaction utx;
+
+    @GET
+    @Produces("application/json")
+    public Response getProjekte() {
+        return Response.ok(jsonb.toJson(entityManager.createNamedQuery("Projekt.findAll", Projekt.class).getResultList())).build();
     }
 
     @GET
     @Produces("application/json")
-    public Response getProject(@QueryParam("id") String id) {
-        if(id == null) {
-            return Response.ok(jsonb.toJson(projekte)).build();
+    @Path("/{id}")
+    public Response getProject(@PathParam("id") String id) {
+        Projekt projekt = entityManager.find(Projekt.class, id);
+        if(projekt == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity(jsonb.toJson(Error404.getInstance())).build();
         } else {
-            Projekt projekt = projekte.stream().filter(p -> p.getId().equals(id)).findFirst().orElse(null);
-            if(projekt == null) {
-                return Response.status(Response.Status.NOT_FOUND).entity(jsonb.toJson(Error404.getInstance())).build();
-            } else {
-                return Response.ok(jsonb.toJson(projekt)).build();
-            }
+            return Response.ok(jsonb.toJson(projekt)).build();
         }
     }
 
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    public Response postProject(Projekt projekt) {
+    public Response postProject(Projekt projekt) throws SystemException {
         if(projekt != null) {
             projekt.setId(UUID.randomUUID().toString());
-            projekte.add(projekt);
-            return Response.ok(jsonb.toJson(projekt)).build();
+            try {
+                utx.begin();
+                entityManager.persist(projekt);
+                utx.commit();
+                return Response.ok(jsonb.toJson(projekt)).build();
+            } catch(Exception e) {
+                utx.rollback();
+                e.printStackTrace();
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsonb.toJson(Error500.getInstance())).build();
+            }
         } else {
             return Response.status(Response.Status.BAD_REQUEST).entity(jsonb.toJson(Error400.getInstance())).build();
         }
@@ -54,29 +72,51 @@ public class EndpointProjekt {
     @PATCH
     @Consumes("application/json")
     @Produces("application/json")
-    public Response patchProject(Projekt projekt, @QueryParam("id") String id) {
-        Projekt projektToUpdate = projekte.stream().filter(p -> p.getId().equals(id)).findFirst().orElse(null);
+    @Path("/{id}")
+    public Response patchProject(Projekt projekt, @PathParam("id") String id) throws SystemException {
+        Projekt projektToUpdate = entityManager.find(Projekt.class, id);
         if(projektToUpdate == null) {
             return Response.status(Response.Status.NOT_FOUND).entity(jsonb.toJson(Error404.getInstance())).build();
         } else {
             if(projekt == null) {
                 return Response.status(Response.Status.BAD_REQUEST).entity(jsonb.toJson(Error400.getInstance())).build();
             }
+
             if(projekt.getProjektStart() != 0) projektToUpdate.setProjektStart(projekt.getProjektStart());
-            if(projekt.getKurzbeschreibung() != null) projekt.setKurzbeschreibung(projekt.getKurzbeschreibung());
+            if(projekt.getKurzbeschreibung() != null) projektToUpdate.setKurzbeschreibung(projekt.getKurzbeschreibung());
             if(projekt.getLogo() != null) projektToUpdate.setLogo(projekt.getLogo());
             if(projekt.getTitel() != null) projektToUpdate.setTitel(projekt.getTitel());
-            return Response.ok(jsonb.toJson(projektToUpdate)).build();
+
+            try {
+                utx.begin();
+                entityManager.merge(projektToUpdate);
+                utx.commit();
+                return Response.ok(jsonb.toJson(projektToUpdate)).build();
+            } catch(Exception e) {
+                utx.rollback();
+                e.printStackTrace();
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsonb.toJson(Error500.getInstance())).build();
+            }
         }
     }
 
     @DELETE
-    public Response deleteProject(@QueryParam("id") String id) {
-        Projekt projektToDelete = projekte.stream().filter(p -> p.getId().equals(id)).findFirst().orElse(null);
+    @Produces("application/json")
+    @Path("/{id}")
+    public Response deleteProject(@PathParam("id") String id)  throws SystemException {
+        Projekt projektToDelete = entityManager.find(Projekt.class, id);
         if(projektToDelete == null) {
             return Response.status(Response.Status.NOT_FOUND).entity(jsonb.toJson(Error404.getInstance())).build();
         } else {
-            projekte.remove(projektToDelete);
+            try {
+                utx.begin();
+                entityManager.remove(entityManager.contains(projektToDelete) ? projektToDelete : entityManager.merge(projektToDelete));
+                utx.commit();
+            } catch(Exception e) {
+                utx.rollback();
+                e.printStackTrace();
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsonb.toJson(Error500.getInstance())).build();
+            }
             return Response.noContent().build();
         }
     }

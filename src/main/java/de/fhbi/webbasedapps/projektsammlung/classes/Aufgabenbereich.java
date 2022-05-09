@@ -1,11 +1,18 @@
 package de.fhbi.webbasedapps.projektsammlung.classes;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
+@Table(name = "Aufgabenbereich")
+@NamedQueries({
+        @NamedQuery(name = "Aufgabenbereich.findAll", query = "SELECT a FROM Aufgabenbereich a"),
+})
 public class Aufgabenbereich implements Serializable {
 
     public static final long serialVersionUID = 1L;
 
+    @Id
     private String id;
     private String titel;
     private String kurzbeschreibung;

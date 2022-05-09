@@ -1,11 +1,18 @@
 package de.fhbi.webbasedapps.projektsammlung.classes;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
+@Table(name = "Projekt")
+@NamedQueries({
+        @NamedQuery(name = "Projekt.findAll", query = "SELECT p FROM Projekt p"),
+})
 public class Projekt implements Serializable {
 
     public static final long serialVersionUID = 1L;
 
+    @Id
     private String id;
     private String titel;
     private String kurzbeschreibung;
