@@ -67,7 +67,7 @@ public class EndpointProjekt_Aufgabenbereich {
         }else {
             try{
                 utx.begin();
-                em.remove(projekt_aufgabenbereichToDelete);
+                em.remove(em.contains(projekt_aufgabenbereichToDelete) ? projekt_aufgabenbereichToDelete : em.merge(projekt_aufgabenbereichToDelete));
                 utx.commit();
             } catch(Exception e){
                 if(utx.getStatus() == Status.STATUS_ACTIVE) utx.rollback();

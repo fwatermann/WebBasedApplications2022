@@ -65,7 +65,7 @@ public class EndpointProjekt_Artefakt {
         } else {
             try {
                 utx.begin();
-                em.remove(projekt_artefaktToDelete);
+                em.remove(em.contains(projekt_artefaktToDelete) ? projekt_artefaktToDelete : em.merge(projekt_artefaktToDelete));
                 utx.commit();
             } catch(Exception e) {
                 if(utx.getStatus() == Status.STATUS_ACTIVE) utx.rollback();
