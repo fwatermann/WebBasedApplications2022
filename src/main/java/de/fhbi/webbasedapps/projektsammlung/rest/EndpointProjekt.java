@@ -25,7 +25,7 @@ public class EndpointProjekt {
     private static Jsonb jsonb = JsonbBuilder.create(new JsonbConfig().withNullValues(true));
 
     @PersistenceContext(unitName = "ProjektsammlungPU")
-    public EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Resource
     private UserTransaction utx;
@@ -60,7 +60,7 @@ public class EndpointProjekt {
                 utx.commit();
                 return Response.ok(jsonb.toJson(projekt)).build();
             } catch(Exception e) {
-                utx.rollback();
+                if(utx.getStatus() == Status.STATUS_ACTIVE) utx.rollback();
                 e.printStackTrace();
                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsonb.toJson(Error500.getInstance())).build();
             }
@@ -93,7 +93,7 @@ public class EndpointProjekt {
                 utx.commit();
                 return Response.ok(jsonb.toJson(projektToUpdate)).build();
             } catch(Exception e) {
-                utx.rollback();
+                if(utx.getStatus() == Status.STATUS_ACTIVE) utx.rollback();
                 e.printStackTrace();
                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsonb.toJson(Error500.getInstance())).build();
             }
@@ -113,7 +113,7 @@ public class EndpointProjekt {
                 entityManager.remove(entityManager.contains(projektToDelete) ? projektToDelete : entityManager.merge(projektToDelete));
                 utx.commit();
             } catch(Exception e) {
-                utx.rollback();
+                if(utx.getStatus() == Status.STATUS_ACTIVE) utx.rollback();
                 e.printStackTrace();
                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsonb.toJson(Error500.getInstance())).build();
             }

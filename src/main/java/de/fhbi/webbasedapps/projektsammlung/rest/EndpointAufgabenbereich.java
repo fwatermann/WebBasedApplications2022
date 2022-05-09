@@ -13,6 +13,7 @@ import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Status;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import javax.ws.rs.*;
@@ -35,7 +36,7 @@ public class EndpointAufgabenbereich {
     @GET
     @Produces("application/json")
     public Response getAllAufgabenbereiche() {
-        return Response.ok(jsonb.toJson(em.createNamedQuery("Aufgabenbereich.findAll", Aufgabenbereich.class))).build();
+        return Response.ok(jsonb.toJson(em.createNamedQuery("Aufgabenbereich.findAll", Aufgabenbereich.class).getResultList())).build();
     }
 
     @GET
@@ -60,7 +61,7 @@ public class EndpointAufgabenbereich {
             em.persist(aufgabenbereich);
             utx.commit();
         } catch (Exception e) {
-            utx.rollback();
+            if(utx.getStatus() == Status.STATUS_ACTIVE) utx.rollback();
             e.printStackTrace();
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsonb.toJson(Error500.getInstance())).build();
         }
@@ -88,7 +89,7 @@ public class EndpointAufgabenbereich {
                 em.merge(aufgabenbereichToUpdate);
                 utx.commit();
             } catch(Exception e) {
-                utx.rollback();
+                if(utx.getStatus() == Status.STATUS_ACTIVE) utx.rollback();
                 e.printStackTrace();
                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsonb.toJson(Error500.getInstance())).build();
             }
@@ -111,7 +112,7 @@ public class EndpointAufgabenbereich {
                 em.remove(em.contains(aufgabenbereichToDelete) ? aufgabenbereichToDelete : em.merge(aufgabenbereichToDelete));
                 utx.commit();
             } catch(Exception e) {
-                utx.rollback();
+                if(utx.getStatus() == Status.STATUS_ACTIVE) utx.rollback();
                 e.printStackTrace();
                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsonb.toJson(Error500.getInstance())).build();
             }

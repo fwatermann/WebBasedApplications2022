@@ -14,6 +14,7 @@ import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Status;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import javax.ws.rs.*;
@@ -36,7 +37,7 @@ public class EndpointArtefakte {
     @GET
     @Produces("application/json")
     public Response getArtefakte() {
-        return Response.ok(jsonb.toJson(entityManager.createNamedQuery("Artefakt.findAll", Artefakt.class))).build();
+        return Response.ok(jsonb.toJson(entityManager.createNamedQuery("Artefakt.findAll", Artefakt.class).getResultList())).build();
     }
 
     @GET
@@ -62,7 +63,7 @@ public class EndpointArtefakte {
                 entityManager.persist(a);
                 utx.commit();
             } catch(Exception e) {
-                utx.rollback();
+                if(utx.getStatus() == Status.STATUS_ACTIVE) utx.rollback();
                 e.printStackTrace();
                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsonb.toJson(Error500.getInstance())).build();
             }
@@ -96,7 +97,7 @@ public class EndpointArtefakte {
                 utx.commit();
                 return Response.ok(jsonb.toJson(artefaktToUpdate)).build();
             } catch(Exception e) {
-                utx.rollback();
+                if(utx.getStatus() == Status.STATUS_ACTIVE) utx.rollback();
                 e.printStackTrace();
                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsonb.toJson(Error500.getInstance())).build();
             }
@@ -116,7 +117,7 @@ public class EndpointArtefakte {
                 entityManager.remove(entityManager.contains(artefakt) ? artefakt : entityManager.merge(artefakt));
                 utx.commit();
             } catch(Exception e) {
-                utx.rollback();
+                if(utx.getStatus() == Status.STATUS_ACTIVE) utx.rollback();
                 e.printStackTrace();
                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsonb.toJson(Error500.getInstance())).build();
             }
