@@ -2,77 +2,120 @@ package de.fhbi.webbasedapps.projektsammlung.rest;
 
 import de.fhbi.webbasedapps.projektsammlung.classes.Aufgabenbereich;
 import de.fhbi.webbasedapps.projektsammlung.errors.Error404;
+import de.fhbi.webbasedapps.projektsammlung.errors.Error500;
 
-import javax.annotation.PreDestroy;
+import javax.annotation.Resource;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
+import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
-import javax.json.bind.Jsonb;
-import javax.servlet.annotation.HttpMethodConstraint;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
 import java.util.UUID;
 
+@Stateless
+@TransactionManagement(TransactionManagementType.BEAN)
 @Path("/aufgabenbereiche")
 public class EndpointAufgabenbereich {
-    private static ArrayList<Aufgabenbereich> aufgabenbereiche = new ArrayList<>();
+
     private static Jsonb jsonb = JsonbBuilder.create(new JsonbConfig().withNullValues(true));
 
-    static {
-        aufgabenbereiche.add(new Aufgabenbereich("1","Aufgabenbereich 1", "Das ist der erste Aufgabenbereich"));
-        aufgabenbereiche.add(new Aufgabenbereich("2","Aufgabenbereich 2", "Das ist der zweite Aufgabenbereich"));
-        aufgabenbereiche.add(new Aufgabenbereich("3","Aufgabenbereich 3", "Das ist der dritte Aufgabenbereich"));
+    @PersistenceContext(name = "ProjektsammlungPU")
+    private EntityManager em;
+
+    @Resource
+    private UserTransaction utx;
+
+    @GET
+    @Produces("application/json")
+    public Response getAllAufgabenbereiche() {
+        return Response.ok(jsonb.toJson(em.createNamedQuery("Aufgabenbereich.findAll", Aufgabenbereich.class))).build();
     }
 
     @GET
     @Produces("application/json")
-    public Response getAufgabenbereich(@QueryParam("id") String id){
-        if(id == null){
-            return Response.ok(jsonb.toJson(aufgabenbereiche)).build();
-        }else{
-            Aufgabenbereich aufgabenbereich = aufgabenbereiche.stream().filter(a -> a.getId().equals(id)).findFirst().orElse(null);
-            if(aufgabenbereich == null){
-                return Response.status(Response.Status.NOT_FOUND).entity(jsonb.toJson(Error404.getInstance())).build();
-            }else{
-                return Response.ok(jsonb.toJson(aufgabenbereich)).build();
-            }
+    @Path("/{id}")
+    public Response getAufgabenbereich(@PathParam("id") String id) {
+        Aufgabenbereich aufgabenbereich = em.find(Aufgabenbereich.class, id);
+        if (aufgabenbereich == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity(jsonb.toJson(Error404.getInstance())).build();
+        } else {
+            return Response.ok(jsonb.toJson(aufgabenbereich)).build();
         }
     }
 
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    public Response postAufgabenbereich(Aufgabenbereich aufgabenbereich){
+    public Response postAufgabenbereich(Aufgabenbereich aufgabenbereich) throws SystemException {
         aufgabenbereich.setId(UUID.randomUUID().toString());
-        aufgabenbereiche.add(aufgabenbereich);
+        try {
+            utx.begin();
+            em.persist(aufgabenbereich);
+            utx.commit();
+        } catch (Exception e) {
+            utx.rollback();
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsonb.toJson(Error500.getInstance())).build();
+        }
         return Response.ok(jsonb.toJson(aufgabenbereich)).build();
     }
 
     @PATCH
     @Consumes("application/json")
     @Produces("application/json")
-    public Response patchAufgabenbereich(Aufgabenbereich aufgabenbereich,@QueryParam("id") String id){
-        Aufgabenbereich aufgabenbereichToUpdate = aufgabenbereiche.stream().filter(a->a.getId().equals(id)).findFirst().orElse(null);
-        if(aufgabenbereichToUpdate == null){
+    @Path("/{id}")
+    public Response patchAufgabenbereich(Aufgabenbereich aufgabenbereich, @PathParam("id") String id) throws SystemException {
+        Aufgabenbereich aufgabenbereichToUpdate = em.find(Aufgabenbereich.class, id);
+        if (aufgabenbereichToUpdate == null) {
             return Response.status(Response.Status.NOT_FOUND).entity(jsonb.toJson(Error404.getInstance())).build();
-        }else{
-            if(aufgabenbereich == null){
+        } else {
+            if (aufgabenbereich == null) {
                 return Response.status(Response.Status.BAD_REQUEST).entity(jsonb.toJson(Error404.getInstance())).build();
             }
-            if(aufgabenbereich.getTitel() != null) aufgabenbereichToUpdate.setTitel(aufgabenbereich.getTitel());
-            if(aufgabenbereich.getKurzbeschreibung() != null) aufgabenbereichToUpdate.setKurzbeschreibung(aufgabenbereich.getKurzbeschreibung());
+
+            if (aufgabenbereich.getTitel() != null) aufgabenbereichToUpdate.setTitel(aufgabenbereich.getTitel());
+            if (aufgabenbereich.getKurzbeschreibung() != null) aufgabenbereichToUpdate.setKurzbeschreibung(aufgabenbereich.getKurzbeschreibung());
+
+            try {
+                utx.begin();
+                em.merge(aufgabenbereichToUpdate);
+                utx.commit();
+            } catch(Exception e) {
+                utx.rollback();
+                e.printStackTrace();
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsonb.toJson(Error500.getInstance())).build();
+            }
+
             return Response.ok(jsonb.toJson(aufgabenbereichToUpdate)).build();
         }
     }
 
     @DELETE
     @Produces("application/json")
-    public Response deleteAufgabenbereich(@QueryParam("id") String id){
-        Aufgabenbereich aufgabenbereichToDelete = aufgabenbereiche.stream().filter(a->a.getId().equals(id)).findFirst().orElse(null);
-        if(aufgabenbereichToDelete == null){
+    @Path("/{id}")
+    public Response deleteAufgabenbereich(@PathParam("id") String id) throws SystemException {
+        Aufgabenbereich aufgabenbereichToDelete = em.find(Aufgabenbereich.class, id);
+        if (aufgabenbereichToDelete == null) {
             return Response.status(Response.Status.NOT_FOUND).entity(jsonb.toJson(Error404.getInstance())).build();
         } else {
-            aufgabenbereiche.remove(aufgabenbereichToDelete);
+
+            try {
+                utx.begin();
+                em.remove(em.contains(aufgabenbereichToDelete) ? aufgabenbereichToDelete : em.merge(aufgabenbereichToDelete));
+                utx.commit();
+            } catch(Exception e) {
+                utx.rollback();
+                e.printStackTrace();
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsonb.toJson(Error500.getInstance())).build();
+            }
+
             return Response.noContent().build();
         }
     }

@@ -24,7 +24,7 @@ public class EndpointProjekt {
 
     private static Jsonb jsonb = JsonbBuilder.create(new JsonbConfig().withNullValues(true));
 
-    @PersistenceContext(unitName = "JPA_ProjektePU")
+    @PersistenceContext(unitName = "ProjektsammlungPU")
     public EntityManager entityManager;
 
     @Resource

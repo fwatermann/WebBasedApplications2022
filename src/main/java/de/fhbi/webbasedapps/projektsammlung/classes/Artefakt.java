@@ -17,8 +17,8 @@ public class Artefakt implements Serializable {
     private String titel;
     private String kurzbeschreibung;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "aufgabenbereich_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "aufgabenbereich_id")
     private Aufgabenbereich aufgabenbereich;
 
     private long geplanteArbeitszeit;
