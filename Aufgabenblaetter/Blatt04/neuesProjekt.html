@@ -7,7 +7,7 @@
         <meta name="url" content="https://google.com">
         <link rel="icon" href="favicon.ico" type="image/x-icon">
     </head>
-    <body>
+    <body style="padding: 0px; margin: 0px;">
         
         <div>
 
@@ -20,68 +20,79 @@
                     <source srcset="img/header320x34.png" media="(min-width: 320px)">
                     <img src="img/header1920x200.png" alt="Image Header">
                 </picture>
-                <div>
+                <div style="margin: 5px 5px;">
                     <a href="startseite.html">Start</a>
                     <a href="projekte.html">Projekte</a>
-                    <a href="kontakt.html">Neues Projekt</a>
+                    <a href="neuesprojekt.html">Neues Projekt</a>
                 </div>
             </div>
             <!-- END: Page Header -->
 
             <!-- BEGIN: Page Content -->
-            <div>
+            <div style="margin: 5px 5px;">
                 <h2>neues Projekt anlegen</h2>
-                <Form>
+
+                <form method="POST" action="http://localhost">
+
                     Projekttitel
-                    <input name="Projekttitel" alt="Projekttitel"></input>
-                    
-                </Form>
-                <Form>
+                    <input name="projekt_titel" type="text" placeholder="Projekttitel">
+
+
                     Logo auswählen
-                    <input type="file" accept="jpg,png,jpeg">
-                </Form>
-                <Form>
+                    <input type="file" accept="jpg,png,jpeg" name="projekt_logo">
+
+                    <br>
+
                     Startdatum
-                    <input type="date" name="projektStart">
+                    <input type="date" name="projektStart" name="projekt_start">
+
                     Enddatum
-                    <input type="date" name="projektEnde">
-                </Form>            
-                <Form>
+                    <input type="date" name="projektEnde" name="projekt_ende">
+
+                    <br>
+
                     Kurzbeschreibung
-                    <textarea>
+                    <textarea name="projekt_kurzbeschreibung"></textarea>
 
-                    </textarea>
+                    <br>
 
-                </Form>
-                <Form>
                     Langbeschreibung
-                    <textarea>
+                    <textarea name="projekt_langbeschreibung"></textarea>
 
-                    </textarea>
-                    
-                </Form>
-                <Form>
+                    <br>
+
                     Erstes Projektziel
-                    <textarea>
+                    <textarea name="projekt_ziel1"></textarea>
 
-                    </textarea>
+                    <br>
+
                     Zweites Projektziel
-                    <textarea>
+                    <textarea name="projekt_ziel2"></textarea>
 
-                    </textarea>
-                </Form>
-                <Button>Speichern</Button>
+                    <br>
+
+                    <input type="submit" value="Projekt erstellen">
+
+                </form>
             </div>
             <!-- END: Page Content -->
 
             <!-- BEGIN: End of Page -->
-            
+            <div style="margin: 5px 5px;">
+
+                <form type="POST" action="http://localhost/login">
+                    <input type="text" name="username" placeholder="Benutzername">
+                    <input type="text" name="password" placeholder="Passwort">
+                    <input type="submit" value="Anmelden">
+                </form>
+
+            </div>
             <!-- END: End of Page -->
         </div>
 
     </body>
 
-    <footer>
+    <footer style="margin: 5px 5px;">
         <a href="impressum.html">Impressum</a>
         <a href="datenschutz.html">Datenschutz</a>
         <a href="haftungsausschluss.html">Haftungsausschluss</a>

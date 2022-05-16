@@ -23,25 +23,53 @@
                 <div>
                     <a href="startseite.html">Start</a>
                     <a href="projekte.html">Projekte</a>
-                    <a href="kontakt.html">Neues Projekt</a>
+                    <a href="neuesprojekt.html">Neues Projekt</a>
                 </div>
             </div>
             <!-- END: Page Header -->
 
             <!-- BEGIN: Page Content -->
             <div>
-                <ul>
-                    <dl>
-                        <dt>Projektname: </dt>
-                        <dd>Beschreibung:</dd>
-                        <dd>Link:</dd>
-                    </dl>
-                </ul>
+                <picture>
+                    <source srcset="img/Testbild.png" media="(min-width: 1920px)"> 
+                    <img src="img/Testbild.png" alt="Image Header">
+                </picture>
+
+                <h2>Projektname</h2>
+                <h3>Projektleiter:</h3>
+                <section>
+                    Kurzbeschreibung
+                </section>
+                <section>
+                    Langbeschreibung
+                </section>
+                <section>
+                    Ziele
+                    <ol>
+                        
+                    </ol>
+                </section>
+                </div>
+                <section>
+                    Bewertung
+                    <form>
+                       <textarea></textarea>
+                    </form>
+                </section>
+                
             </div>
             <!-- END: Page Content -->
 
             <!-- BEGIN: End of Page -->
-            
+            <div>
+
+                <form type="POST" action="http://localhost/login">
+                    <input type="text" name="username" placeholder="Benutzername">
+                    <input type="text" name="password" placeholder="Passwort">
+                    <input type="submit" value="Anmelden">
+                </form>
+
+            </div>
             <!-- END: End of Page -->
         </div>
 
