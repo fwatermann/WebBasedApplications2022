@@ -1,0 +1,90 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Projektsammlung</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Projektsammlung">
+        <meta name="url" content="https://google.com">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        
+        <div>
+
+            <!-- BEGIN: Page Header -->
+            <div>
+                <picture>
+                    <source srcset="img/header1920x200.png" media="(min-width: 1920px)">
+                    <source srcset="img/header1280x133.png" media="(min-width: 1280px)">
+                    <source srcset="img/header640x67.png" media="(min-width: 640px)">
+                    <source srcset="img/header320x34.png" media="(min-width: 320px)">
+                    <img src="img/header1920x200.png" alt="Image Header">
+                </picture>
+                <div>
+                    <a href="startseite.html">Start</a>
+                    <a href="projekte.html">Projekte</a>
+                    <a href="neuesprojekt.html">Neues Projekt</a>
+                </div>
+            </div>
+            <!-- END: Page Header -->
+
+            <!-- BEGIN: Page Content -->
+            <div>
+                <picture>
+                    <source srcset="img/Testbild.png" media="(min-width: 1920px)"> 
+                    <img src="img/Testbild.png" alt="Image Header">
+                </picture>
+
+                <h2>Projekt Nr.1</h2>
+                <h3>Projektleiter: Hans Dieter Wurst</h3>
+                <b>Kurzbeschreibung:</b>
+                <section>
+                    Eine wunderbare Technologie: Das Internetz!
+                </section>
+                <b>Beschreibung:</b>
+                <section>
+                    Ein wundervolles Projekt was mit XYZ und ganz viel LIEBE erstellt wurde.
+                </section>
+                <section>
+                    Ziele
+                    <ol>
+                        <li>Schlafen</li>
+                        <li>Essen</li>
+                        <li>Entertainment</li>
+                    </ol>
+                </section>
+                </div>
+                <section>
+                    Bewertung
+                    <form type="POST" action="http://localhost/projektbewertung">
+                        <input type="hidden" name="projektid" value="1">
+                        <textarea></textarea>
+                        <input type="submit" value="Absenden">
+                    </form>
+                </section>
+                
+            </div>
+            <!-- END: Page Content -->
+
+            <!-- BEGIN: End of Page -->
+            <div>
+
+                <form type="POST" action="http://localhost/login">
+                    <input type="text" name="username" placeholder="Benutzername">
+                    <input type="text" name="password" placeholder="Passwort">
+                    <input type="submit" value="Anmelden">
+                </form>
+
+            </div>
+            <!-- END: End of Page -->
+        </div>
+
+    </body>
+
+    <footer>
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+        <a href="haftungsausschluss.html">Haftungsausschluss</a>
+        <a href="kontakt.html">Kontakt</a>
+    </footer>
+</html>
