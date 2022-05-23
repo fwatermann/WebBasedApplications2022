@@ -1,18 +1,20 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Projektsammlung</title>
+        <title id="head_anchor">Projektsammlung</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Projektsammlung">
         <meta name="url" content="https://google.com">
         <link rel="icon" href="favicon.ico" type="image/x-icon">
     </head>
+    <link rel="stylesheet" href="css/startseite.css">
+    <link rel="stylesheet" href="css/general.css">
     <body>
         
-        <div>
+        <div >
 
             <!-- BEGIN: Page Header -->
-            <div>
+            <div id="head">
                 <picture>
                     <source srcset="img/header1920x200.png" media="(min-width: 1920px)">
                     <source srcset="img/header1280x133.png" media="(min-width: 1280px)">
@@ -20,55 +22,63 @@
                     <source srcset="img/header320x34.png" media="(min-width: 320px)">
                     <img src="img/header1920x200.png" alt="Image Header">
                 </picture>
-                <div>
-                    <a href="startseite.html">Start</a>
-                    <a href="projekte.html">Projekte</a>
-                    <a href="neuesprojekt.html">Neues Projekt</a>
-                </div>
+                
+                <form id="LoginForm" type="POST" action="http://localhost/login">
+                    <input type="text" name="username" placeholder="Benutzername">
+                    <input type="text" name="password" placeholder="Passwort">
+                    <input type="submit" value="Anmelden">
+                    <a href="registrieren.html">Registrieren</a>
+                </form> 
+                
             </div>
             <!-- END: Page Header -->
            
 
             <!-- BEGIN: Page Content -->
             <div>
+                <div id="navbar" style="font-size: 150%; font-weight: bold;">
+                    <a id="link" href="startseite.html">Start</a>
+                    <a id="link" href="projekte.html">Projekte</a>
+                    <a id="link" href="neuesprojekt.html">Neues Projekt</a>
+                </div>
                 <h1>
-                    Willkommen bei unserer Projektsammlung!
-                    <br>
-                    Heutiges Top-Projekt:
+                    <a id="firstLine">Willkommen bei unserer Projektsammlung!</a>
+                    <br/>
+                    <a id="secondLine">Heutiges Top-Projekt:</a>
                 </h1>
-
-                <h2>
-                    Auf dieser Seite können Projekte erstellt, verwaltet, gesammelt und gelöscht werden!                
-                </h2>
-                <video width="320" height="240" autoplay muted loop controls>
-                    <source src="./video/placeholder.mp4">
-                </video>
-
-                <h2>
-                    Die aktuellsten Projekte:
-                </h2>
-                <ul>
-                    <li>
-                        <a href="projekt1.html">Projekt Nr.1</a>
-                    </li>
-                    <li>
-                        <a href="projekt2.html">Projekt Nr.2</a>
-                    </li>
-                </ul>
-
+                <div id="content">
+                    <div>
+                        <h2>
+                            Kurzbeschreibung                
+                        </h2>
+                        <video width="320" height="240" controls>
+                            <source src="">
+                        </video>
+                    </div>
+                    <div>
+                        <h2>
+                            Die aktuellsten Projekte:
+                        </h2>
+                        <ul>
+                            <li>
+                                <a href="projekt1.html">Projekt Nr.1</a>
+                            </li>
+                            <li>
+                                <a href="projekt2.html">Projekt Nr.2</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <!-- END: Page Content -->
 
             <!-- BEGIN: End of Page -->
             <div>
 
-                <form type="POST" action="http://localhost/login">
-                    <input type="text" name="username" placeholder="Benutzername">
-                    <input type="text" name="password" placeholder="Passwort">
-                    <input type="submit" value="Anmelden">
-                    <a href="registrieren.html">Registrieren</a>
-                </form>
-
+                
+                <button id="jumpToHead" href="#head_anchor">
+                    ↑
+                </button>	
             </div>
             <!-- END: End of Page -->
 
@@ -77,9 +87,9 @@
     </body>
 
     <footer>
-        <a href="impressum.html">Impressum</a>
-        <a href="datenschutz.html">Datenschutz</a>
-        <a href="haftungsausschluss.html">Haftungsausschluss</a>
-        <a href="kontakt.html">Kontakt</a>
+        <a id="link" href="impressum.html">Impressum</a>
+        <a id="link" href="datenschutz.html">Datenschutz</a>
+        <a id="link" href="haftungsausschluss.html">Haftungsausschluss</a>
+        <a id="link"href="kontakt.html">Kontakt</a>
     </footer>
 </html>

@@ -1,0 +1,44 @@
+body {
+    background-color: darkgray;
+    margin:0;
+}
+
+#jumpToHead {
+    aspect-ratio: 1;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    background-color: #00BFFF;
+
+}
+
+#LoginForm {
+    position: relative;
+    float: right;
+}
+
+#head{
+    border-bottom:solid #00BFFF 3px;
+}
+
+#navbar{
+
+    flex: auto;
+    background-color: black;
+}
+
+#link{
+    color: white;
+    margin: 5px;
+    text-decoration: none;
+}
+
+#link:hover{
+    color: #78CEFA;
+}
+
+footer{
+    text-align: center;
+    background-color: black;
+}

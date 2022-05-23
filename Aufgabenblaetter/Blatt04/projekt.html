@@ -7,12 +7,13 @@
         <meta name="url" content="https://google.com">
         <link rel="icon" href="favicon.ico" type="image/x-icon">
     </head>
+    <link rel="stylesheet" href="css/general.css">
     <body>
         
         <div>
 
             <!-- BEGIN: Page Header -->
-            <div>
+            <div id="head">
                 <picture>
                     <source srcset="img/header1920x200.png" media="(min-width: 1920px)">
                     <source srcset="img/header1280x133.png" media="(min-width: 1280px)">
@@ -20,16 +21,24 @@
                     <source srcset="img/header320x34.png" media="(min-width: 320px)">
                     <img src="img/header1920x200.png" alt="Image Header">
                 </picture>
-                <div>
-                    <a href="startseite.html">Start</a>
-                    <a href="projekte.html">Projekte</a>
-                    <a href="neuesprojekt.html">Neues Projekt</a>
-                </div>
+                
+                <form id="LoginForm" type="POST" action="http://localhost/login">
+                    <input type="text" name="username" placeholder="Benutzername">
+                    <input type="text" name="password" placeholder="Passwort">
+                    <input type="submit" value="Anmelden">
+                    <a href="registrieren.html">Registrieren</a>
+                </form> 
+                
             </div>
             <!-- END: Page Header -->
 
             <!-- BEGIN: Page Content -->
             <div>
+                <div id="navbar" style="font-size: 150%; font-weight: bold;">
+                    <a id="link" href="startseite.html">Start</a>
+                    <a id="link" href="projekte.html">Projekte</a>
+                    <a id="link" href="neuesprojekt.html">Neues Projekt</a>
+                </div>
                 <picture>
                     <source srcset="img/Testbild.png" media="(min-width: 1920px)"> 
                     <img src="img/Testbild.png" alt="Image Header">
@@ -63,11 +72,7 @@
             <!-- BEGIN: End of Page -->
             <div>
 
-                <form type="POST" action="http://localhost/login">
-                    <input type="text" name="username" placeholder="Benutzername">
-                    <input type="text" name="password" placeholder="Passwort">
-                    <input type="submit" value="Anmelden">
-                </form>
+                
 
             </div>
             <!-- END: End of Page -->
@@ -76,9 +81,9 @@
     </body>
 
     <footer>
-        <a href="impressum.html">Impressum</a>
-        <a href="datenschutz.html">Datenschutz</a>
-        <a href="haftungsausschluss.html">Haftungsausschluss</a>
-        <a href="kontakt.html">Kontakt</a>
+        <a id="link" href="impressum.html">Impressum</a>
+        <a id="link" href="datenschutz.html">Datenschutz</a>
+        <a id="link" href="haftungsausschluss.html">Haftungsausschluss</a>
+        <a id="link" href="kontakt.html">Kontakt</a>
     </footer>
 </html>

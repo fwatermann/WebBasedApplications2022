@@ -8,7 +8,7 @@
         <link rel="icon" href="favicon.ico" type="image/x-icon">
     </head>
     <body>
-        <link rel="stylesheet" href="css/general.css">
+        
         <div>
 
             <!-- BEGIN: Page Header -->
@@ -33,41 +33,35 @@
 
             <!-- BEGIN: Page Content -->
             <div>
-                <div id="navbar" style="font-size: 150%; font-weight: bold;">
-                    <a id="link" href="startseite.html">Start</a>
-                    <a id="link" href="projekte.html">Projekte</a>
-                    <a id="link" href="neuesprojekt.html">Neues Projekt</a>
-                </div>
-                <ul>
-                    <li>
-                        <dt>Projektname: Projekt Nr.1</dt>
-                        <dt>Kurzbeschreibung: Eine wunderbare Technologie: Das Internetz!</dt>
-                        <dt>Link: <a href="projekt1.html">Projektseite</a></dt>
-                    </li>
-                    <li>
-                        <dt>Projektname: Projekt Nr.2</dt>
-                        <dt>Kurzbeschreibung: 2&2 Interwech GmbH</dt>
-                        <dt>Link: <a href="projekt2.html">Projektseite</a></dt>
-                    </li>
-                </ul>
+                
             </div>
             <!-- END: Page Content -->
 
             <!-- BEGIN: End of Page -->
             <div>
 
-                
+                <form type="POST" action="http://localhost/login">
+                    <input type="text" name="email" placeholder="E-Mail Adresse">
+                    <br>
+                    <input type="text" name="username" placeholder="Benutzername">
+                    <br>
+                    <input type="text" name="password" placeholder="Passwort">
+                    <br>
+                    <input type="text" name="password confirm" placeholder="Passwort wiederholen">
+                    <br>
+                    <input type="submit" value="Registrieren">
+                </form>
 
             </div>
             <!-- END: End of Page -->
+
         </div>
 
     </body>
 
     <footer>
-        <a id="link" href="impressum.html">Impressum</a>
-        <a id="link" href="datenschutz.html">Datenschutz</a>
-        <a id="link" href="haftungsausschluss.html">Haftungsausschluss</a>
-        <a id="link" href="kontakt.html">Kontakt</a>
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+        <a href="haftungsausschluss.html">Haftungsausschluss</a>
     </footer>
 </html>
