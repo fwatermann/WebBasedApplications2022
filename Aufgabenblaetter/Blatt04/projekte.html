@@ -9,6 +9,7 @@
     </head>
     <body>
         <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/projekte.css"
         <div>
 
             <!-- BEGIN: Page Header -->
@@ -27,27 +28,51 @@
                     <input type="submit" value="Anmelden">
                     <a href="registrieren.html">Registrieren</a>
                 </form> 
-                
-            </div>
-            <!-- END: Page Header -->
-
-            <!-- BEGIN: Page Content -->
-            <div>
                 <div id="navbar" style="font-size: 150%; font-weight: bold;">
                     <a id="link" href="startseite.html">Start</a>
                     <a id="link" href="projekte.html">Projekte</a>
                     <a id="link" href="neuesprojekt.html">Neues Projekt</a>
                 </div>
+            </div>
+            <!-- END: Page Header -->
+
+            <!-- BEGIN: Page Content -->
+            <div>
+                
+                <div id="outerFilter" >
+                    <a id="filterButton">
+                        Filter
+                    </a>
+                    <div id="filter">
+                        <div>
+                            <a>Nach bestimmten Projekt suchen</a><br>
+                            <input/>
+                        </div>
+                        <div>
+                            <a>Anzahl der Ziele</a><br>
+                            <input type="range" min="0" max="10">
+                        </div>
+                        <div>
+                            <a>Bewertung</a><br>
+                            <input type="checkbox">1 Stern<br>
+                            <input type="checkbox">2 Sterne<br>
+                            <input type="checkbox">3 Sterne<br>
+                            <input type="checkbox">4 Sterne<br>
+                            <input type="checkbox">5 Sterne<br>  
+                        </div>
+                        <button style="width: 100px;height: 50px;">anwenden</button>
+                    </div>
+                </div>
                 <ul>
                     <li>
-                        <dt>Projektname: Projekt Nr.1</dt>
-                        <dt>Kurzbeschreibung: Eine wunderbare Technologie: Das Internetz!</dt>
-                        <dt>Link: <a href="projekt1.html">Projektseite</a></dt>
+                        <dt> <a id="header">Projektname:</a> <a style="font-size:150%;">Projekt Nr.1 </a></dt>
+                        <dt> <a id="header">Kurzbeschreibung:</a><a id="Kurzbeschreibung">Eine wunderbare Technologie: Das Internetz!</a></dt>
+                        <dt> <a id="header">Link:</a><a href="projekt1.html">Projektseite</a></dt>
                     </li>
                     <li>
-                        <dt>Projektname: Projekt Nr.2</dt>
-                        <dt>Kurzbeschreibung: 2&2 Interwech GmbH</dt>
-                        <dt>Link: <a href="projekt2.html">Projektseite</a></dt>
+                        <dt> <a id="header">Projektname:</a> <a style="font-size:150%;">Projekt Nr.2 </a></dt>
+                        <dt><a id="header">Kurzbeschreibung:</a><a id="Kurzbeschreibung">2&2 Interwech GmbH</a></dt>
+                        <dt><a id="header">Link:</a><a href="projekt2.html">Projektseite</a></dt>
                     </li>
                 </ul>
             </div>

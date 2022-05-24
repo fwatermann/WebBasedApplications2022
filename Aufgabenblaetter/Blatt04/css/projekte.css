@@ -1,0 +1,33 @@
+#Kurzbeschreibung{
+    background-color: lightgray;
+    padding: 5px;
+}
+
+#header{
+    background-color: #1B1C1D;
+    color: white;
+}
+
+#filter{
+    opacity: 0;
+    display: none;
+    flex-direction: row;
+    gap: 50px;
+    padding: 5px;
+    background-color: gray;
+}
+
+#filterButton{
+    font-size: 150%;
+    margin-left: 20px;
+    background-color: #00BFFF;
+    border-radius: 20%;
+}
+
+
+
+#outerFilter:hover #filter{
+    display:flex;
+    opacity:1;
+}
+

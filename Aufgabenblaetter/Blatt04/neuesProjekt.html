@@ -6,8 +6,10 @@
         <meta name="description" content="Projektsammlung">
         <meta name="url" content="https://google.com">
         <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/neuesProjekt.css">
     </head>
-    <link rel="stylesheet" href="css/general.css">
+    
     <body style="padding: 0px; margin: 0px;">
         
         <div>
@@ -28,16 +30,16 @@
                     <input type="submit" value="Anmelden">
                     <a href="registrieren.html">Registrieren</a>
                 </form> 
-                
+                <div id="navbar" style="font-size: 150%; font-weight: bold;">
+                    <a id="link" href="startseite.html">Start</a>
+                    <a id="link" href="projekte.html">Projekte</a>
+                    <a id="link" href="neuesprojekt.html">Neues Projekt</a>
+                </div>
             </div>
             <!-- END: Page Header -->
 
             <!-- BEGIN: Page Content -->
-            <div id="navbar" style="font-size: 150%; font-weight: bold;">
-                <a id="link" href="startseite.html">Start</a>
-                <a id="link" href="projekte.html">Projekte</a>
-                <a id="link" href="neuesprojekt.html">Neues Projekt</a>
-            </div>
+            
             <div style="margin: 5px 5px;">
                 <h2>neues Projekt anlegen</h2>
 
@@ -48,7 +50,10 @@
 
 
                     Logo auswählen
-                    <input type="file" accept="jpg,png,jpeg" name="projekt_logo">
+                    <label for="logo-input">
+                        <img src="img/Testbild.png"/>
+                    </label>
+                    <input id="logo-input" type="file" accept="jpg,png,jpeg" name="projekt_logo">
 
                     <br>
 

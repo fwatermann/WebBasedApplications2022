@@ -18,12 +18,8 @@ body {
     float: right;
 }
 
-#head{
-    border-bottom:solid #00BFFF 3px;
-}
-
 #navbar{
-
+    border-top:solid #00BFFF 3px;
     flex: auto;
     background-color: black;
 }
