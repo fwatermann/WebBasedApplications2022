@@ -74,3 +74,7 @@ fieldset#bewertung {
     border: none;
     margin-left: 0px;
 }
+
+div.page_wrapper form {
+    width: 100%;
+}

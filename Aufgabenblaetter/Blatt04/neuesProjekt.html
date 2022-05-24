@@ -7,10 +7,9 @@
         <meta name="url" content="https://google.com">
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/neuesProjekt.css">
+        <link rel="stylesheet" href="css/projekt.css">
     </head>
-    
-    <body style="padding: 0px; margin: 0px;">
+    <body>
         
         <div>
 
@@ -30,75 +29,77 @@
                     <input type="submit" value="Anmelden">
                     <a href="registrieren.html">Registrieren</a>
                 </form> 
+                
                 <div id="navbar" style="font-size: 150%; font-weight: bold;">
                     <a id="link" href="startseite.html">Start</a>
                     <a id="link" href="projekte.html">Projekte</a>
                     <a id="link" href="neuesprojekt.html">Neues Projekt</a>
                 </div>
+
             </div>
             <!-- END: Page Header -->
 
             <!-- BEGIN: Page Content -->
-            
-            <div style="margin: 5px 5px;">
-                <h2>neues Projekt anlegen</h2>
+            <div class="page_wrapper">
 
-                <form method="POST" action="http://localhost/createprojekt">
+                <!-- Inhalt -->
+                <div class="menu_inhalt">
+                    <ul>
+                        <li><a href="#ank_projektleiter">Projektleiter</a></li>
+                        <li><a href="#ank_kurzbeschreibung">Kurzbeschreibung</a></li>
+                        <li><a href="#ank_beschreibung">Beschreibung</a></li>
+                        <li><a href="#ank_ziele">Ziele</a></li>
+                    </ul>
+                </div>
 
-                    Projekttitel
-                    <input name="projekt_titel" type="text" placeholder="Projekttitel">
+                <form>
+                    <div class="content">
 
+                        <div class="projekt_titel">
+                            <label for="input_projekt_logo">
+                                <img src="img/Testbild.png" alt="Image Header">
+                            </label>
+                            <input id="input_projekt_logo" type="file" accept="jpg,jpeg,png,gif,bmp" name="projektlogo" style="display: none;">
+                            <h2>
+                                <input type="text" name="projekttitel" placeholder="Projekttitel" style="font-size: 2rem;">
+                            </h2>
+                            <h3>Projektleiter: <input type="text" name="projektleiter" placeholder="Projektleiter"></h3>
+                        </div>
 
-                    Logo auswählen
-                    <label for="logo-input">
-                        <img src="img/Testbild.png"/>
-                    </label>
-                    <input id="logo-input" type="file" accept="jpg,png,jpeg" name="projekt_logo">
-
-                    <br>
-
-                    Startdatum
-                    <input type="date" name="projektStart" name="projekt_start">
-
-                    Enddatum
-                    <input type="date" name="projektEnde" name="projekt_ende">
-
-                    <br>
-
-                    Kurzbeschreibung
-                    <textarea name="projekt_kurzbeschreibung"></textarea>
-
-                    <br>
-
-                    Langbeschreibung
-                    <textarea name="projekt_langbeschreibung"></textarea>
-
-                    <br>
-
-                    Erstes Projektziel
-                    <textarea name="projekt_ziel1"></textarea>
-
-                    <br>
-
-                    Zweites Projektziel
-                    <textarea name="projekt_ziel2"></textarea>
-
-                    <br>
-
+                        <section id="#ank_kurzbeschreibung">
+                            <span>Kurzbeschreibung</span>
+                            <br>
+                            <textarea name="projekt_kurzbeschreibung" placeholder="Dies ist ein Projekt..." style="width: 100%; resize: vertical; min-height: 100px;"></textarea>
+                        </section>
+                        <section id="#ank_beschreibung">
+                            Langbeschreibung
+                            <br>
+                            <textarea name="projekt_beschreibung" placeholder="Dies ist ein Projekt..." style="width: 100%; resize: vertical; min-height: 100px;"></textarea>
+                        </section>
+                        <section id="#ank_ziele">
+                            Ziele
+                            <br>
+                            Ziel 1: <input type="text" name="projekt_ziel1" placeholder="Essen">
+                            <br>
+                            Ziel 2: <input type="text" name="projekt_ziel2" placeholder="Trinken">
+                        </section>
+                        <section id="#ank_details">
+                            Start: <input type="date" name="projekt_start" placeholder="Startdatum">
+                            <br>
+                            Ende: <input type="date" name="projekt_ende" placeholder="Enddatum">
+                        </section>
+                    </div>
                     <input type="submit" value="Projekt erstellen">
-
                 </form>
+            </div>
+                
             </div>
             <!-- END: Page Content -->
 
             <!-- BEGIN: End of Page -->
-            <div style="margin: 5px 5px;">
+            <div>
 
-                <form type="POST" action="http://localhost/login">
-                    <input type="text" name="username" placeholder="Benutzername">
-                    <input type="text" name="password" placeholder="Passwort">
-                    <input type="submit" value="Anmelden">
-                </form>
+                
 
             </div>
             <!-- END: End of Page -->
