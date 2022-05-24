@@ -1,0 +1,76 @@
+div.page_wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    background-color: transparent;
+    padding: 0px;
+    margin: 0px;
+}
+
+div.menu_inhalt {
+    background-color: #000000;
+    width: 200px;
+    color: white;
+    border-right: 5px solid #00ff00;
+}
+
+div.menu_inhalt ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+div.menu_inhalt a {
+    color: white;
+    display: block;
+    width: 100%;
+}
+
+div.menu_inhalt a:hover {
+    color: #333333;
+    background-color: aqua;
+}
+
+div.content {
+    width: auto;
+    flex-grow: 1;
+    padding: 0px 15px;
+}
+
+div.projekt_titel {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: darkgray;
+    position: sticky;
+    top: 0;
+}
+
+div.projekt_titel h2 {
+    flex-grow: 1;
+    font-size: 2rem;
+    background-color: #1B1C1D;
+    color: white;
+}
+
+div.projekt_titel :is(h1, h2, h3, h4, h5, h6) {
+    background-color: #1B1C1D;
+    color: white;
+}
+
+textarea.bewertung {
+    background-color: transparent;
+    border: 1px solid #888888;
+}
+
+textarea.bewertung:focus {
+    background-color: white;
+}
+
+fieldset#bewertung {
+    display: inline-block;
+    border: none;
+    margin-left: 0px;
+}
