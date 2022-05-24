@@ -1,0 +1,114 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Projektsammlung</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Projektsammlung">
+        <meta name="url" content="https://google.com">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/projekt.css">
+    </head>
+    <body>
+        
+        <div>
+
+            <!-- BEGIN: Page Header -->
+            <div id="head">
+                <picture>
+                    <source srcset="img/header1920x200.png" media="(min-width: 1920px)">
+                    <source srcset="img/header1280x133.png" media="(min-width: 1280px)">
+                    <source srcset="img/header640x67.png" media="(min-width: 640px)">
+                    <source srcset="img/header320x34.png" media="(min-width: 320px)">
+                    <img src="img/header1920x200.png" alt="Image Header">
+                </picture>
+                
+                <form id="LoginForm" type="POST" action="http://localhost/login">
+                    <input type="text" name="username" placeholder="Benutzername">
+                    <input type="text" name="password" placeholder="Passwort">
+                    <input type="submit" value="Anmelden">
+                    <a href="registrieren.html">Registrieren</a>
+                </form> 
+                
+                <div id="navbar" style="font-size: 150%; font-weight: bold;">
+                    <a id="link" href="startseite.html">Start</a>
+                    <a id="link" href="projekte.html">Projekte</a>
+                    <a id="link" href="neuesprojekt.html">Neues Projekt</a>
+                </div>
+
+            </div>
+            <!-- END: Page Header -->
+
+            <!-- BEGIN: Page Content -->
+            <div class="page_wrapper">
+
+                <!-- Inhalt -->
+                <div class="menu_inhalt">
+                    <ul>
+                        <li><a href="#ank_projektleiter">Projektleiter</a></li>
+                        <li><a href="#ank_kurzbeschreibung">Kurzbeschreibung</a></li>
+                        <li><a href="#ank_beschreibung">Beschreibung</a></li>
+                        <li><a href="#ank_ziele">Ziele</a></li>
+                        <li><a href="#ank_bewertung">Bewertung</a></li>
+                    </ul>
+                </div>
+
+                <div class="content">
+
+                    <div class="projekt_titel">
+                        <picture>
+                            <source srcset="img/Testbild.png" media="(min-width: 1920px)"> 
+                            <img src="img/Testbild.png" alt="Image Header">
+                        </picture>
+                        <h2>Projektname</h2>
+                        <h3>Projektleiter: Hans Wurst</h3>
+                    </div>
+
+                    <section id="#ank_kurzbeschreibung">
+                        Kurzbeschreibung
+                    </section>
+                    <section id="#ank_beschreibung">
+                        Langbeschreibung
+                    </section>
+                    <section id="#ank_ziele">
+                        Ziele
+                        <ol></ol>
+                    </section>
+                    <section id="#ank_bewertung">
+                        Bewertung
+                        <form>
+                            <fieldset id="bewertung">
+                                1 <input type="radio" id="bewertung_1" value="1" name="bewertung">
+                                2 <input type="radio" id="bewertung_1" value="2" name="bewertung">
+                                3 <input type="radio" id="bewertung_1" value="3" name="bewertung">
+                                4 <input type="radio" id="bewertung_1" value="4" name="bewertung">
+                                5 <input type="radio" id="bewertung_1" value="5" name="bewertung">
+                            </fieldset>
+                            <br>
+                           <textarea class="bewertung"></textarea>
+                        </form>
+                    </section>
+                </div>
+            </div>
+                
+            </div>
+            <!-- END: Page Content -->
+
+            <!-- BEGIN: End of Page -->
+            <div>
+
+                
+
+            </div>
+            <!-- END: End of Page -->
+        </div>
+
+    </body>
+
+    <footer>
+        <a id="link" href="impressum.html">Impressum</a>
+        <a id="link" href="datenschutz.html">Datenschutz</a>
+        <a id="link" href="haftungsausschluss.html">Haftungsausschluss</a>
+        <a id="link" href="kontakt.html">Kontakt</a>
+    </footer>
+</html>
