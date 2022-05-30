@@ -1,0 +1,51 @@
+{
+    
+    "header":{
+        "start":"Start",
+        "projects":"Projekte",
+        "new_Project":"neues Projekt",
+        "username_input_fill":"Benutzername",
+        "password_input_fill":"Passwort",
+        "sign_in_button":"Anmelden",
+        "register_button":"Registrieren"
+    },
+    "footer":{
+        "imprint":"Impressum",
+        "privacy_policy":"Datenschutzrichtlinien",
+        "disclaimer":"Haftungsausschluss",
+        "contact":"Kontakt"
+    },
+    "homepage":{
+        "welcome_header_top": "Willkommen bei unserer Projektsammlung!",
+        "welcome_header_bottom": "Heutiges Top-Projekt",
+        "short_description": "Kurzbeschreibung",
+        "latest_projects": "Die aktuellsten Projekte"
+    },
+    "projects":{
+        "filter_button": "Filter",
+        "filter_start_date": "Startdatum",
+        "filter_project_runtime": "Projektlaufzeit",
+        "project_name_label": "Projektname",
+        "short_description_label": "Kurzbeschreibung",
+        "link": "Link"
+    },
+    "project":{
+        "project_manager":"Projektleiter",
+        "short_description":"Kurzbeschreibung",
+        "description":"Beschreibung",
+        "project_goals":"Ziele",
+        "project_rating":"Bewertung"
+    },
+    "new_project":{
+        "project_title":"Projekttitel",
+        "project_manager":"Projektleiter",
+        "short_description":"Kurzbeschreibung",
+        "description":"Beschreibung",
+        "project_goals":"Ziele",
+        "first_goal":"Ziel 1",
+        "second_goal":"Ziel 2",
+        "start_date":"Startdatum",
+        "end_date":"Enddatum",
+        "create_project_button":"Projekt erstellen"
+    }
+}
