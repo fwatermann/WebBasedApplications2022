@@ -48,3 +48,30 @@ export class Artefakt {
 
 }
 
+
+export class RefProjektArtefakt {
+
+    arbeitszeit;
+    projekt_id;
+    artefakt_id;
+
+    constructor(arbeitszeit, projekt_id, artefakt_id) {
+        this.arbeitszeit = arbeitszeit;
+        this.projekt_id = projekt_id;
+        this.artefakt_id = artefakt_id;
+    }
+
+}
+
+export class RefProjektAufgabenbereich {
+
+    aufgabenbereichId;
+    projektId;
+
+    constructor(aufgabenbereichId, projektId) {
+        this.aufgabenbereichId = aufgabenbereichId;
+        this.projektId = projektId;
+    }
+
+}
+
