@@ -5,6 +5,8 @@ export class Projekt {
     kurzbeschreibung;
     logoUrl;
     projektStart;
+    artefakte = []
+    aufgabenbereiche = [];
 
     constructor(id, titel, kurzbeschreibung, logoUrl, projektStart) {
         this.id = id;
