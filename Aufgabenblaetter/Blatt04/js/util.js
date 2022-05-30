@@ -1,7 +1,14 @@
 import { Projekt } from "./models";
 
 export function calcProjectRuntime(project){
-    
+    let ret;
+    if(project instanceof Projekt){
+        for(let i = 0;i<project.artefakte.length;i++){
+            ret  += project.artefakte[i].geplanteArbeitszeit;
+        }
+        return ret;
+    }
+    return 0;
 }
 
 export function sortProjects(projects, sortBy) {
