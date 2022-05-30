@@ -1,5 +1,5 @@
-import { Artefakt, Projekt } from "./models";
-import { calcProjectRuntime,sortProjects } from "./util";
+import { Artefakt, Projekt } from "./models.js";
+import { calcProjectRuntime,sortProjects } from "./util.js";
 
 
 export function calcProjectRuntimeTest(){
@@ -9,7 +9,7 @@ export function calcProjectRuntimeTest(){
 
     let testProject = new Projekt(0,"testProjekt 1","dies ist ein Test :D"," ",0);
 
-    testProject.artefakte.push(artefact1,artefact2.artefact3);
+    testProject.artefakte.push(artefact1,artefact2,artefact3);
 
     console.log(calcProjectRuntime(testProject));
 }

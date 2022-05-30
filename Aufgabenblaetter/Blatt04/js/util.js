@@ -1,7 +1,7 @@
-import { Projekt } from "./models";
+import { Projekt } from "./models.js";
 
 export function calcProjectRuntime(project){
-    let ret;
+    let ret = 0;
     if(project instanceof Projekt){
         for(let i = 0;i<project.artefakte.length;i++){
             ret  += project.artefakte[i].geplanteArbeitszeit;
