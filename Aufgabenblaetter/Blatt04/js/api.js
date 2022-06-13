@@ -26,7 +26,7 @@ export async function getProjektById(id){
 export async function getAllAufgabenbereiche(){
 
     return new Promise((resolve, reject) => {
-        fetch(API_URL + "/projekte")
+        fetch(API_URL + "/aufgabenbereiche")
             .then(response => response.json())
             .then(data => resolve(data))
             .catch(err => reject(err));
@@ -47,7 +47,7 @@ export async function getAufgabenbereiche(projektId) {
 export async function getAllArtefakte() {
 
     return new Promise((resolve, reject) => {
-        fetch(API_URL + "/projekte")
+        fetch(API_URL + "/artefakte")
             .then(response => response.json())
             .then(data => resolve(data))
             .catch(err => reject(err));
