@@ -1,6 +1,6 @@
-import { postProjekt,postAufgabenbereich, postArtefakt, getProjektById, getAufgabenbereiche, getArtefakte, getAllArtefakte, setArbeitszeit } from "./api.js";
-const PROJEKTID = 0;
-const ARTEFAKTID = 0;
+import { postProjekt,postAufgabenbereich, postArtefakt, getProjekte, getProjektById, getAufgabenbereiche, getAllAufgabenbereiche, getArtefakte, getAllArtefakte, setArbeitszeit } from "./api.js";
+const PROJEKTID = "93f3fc40-1b87-433a-b5c8-011eb27b3545";
+const ARTEFAKTID = "138c403e-9860-4f75-9872-825ecce6e6d1";
 
 export async function doPostTests(){
     await testPostProject();
@@ -84,7 +84,7 @@ export async function testGetAllAufgabenbereiche(){
 }
 
 export async function testSetArbeitsZeit(){
-    let resp = await setArbeitszeit(PROJEKTID,ARTEFAKTID,10);
+    let resp = await setArbeitszeit(PROJEKTID,ARTEFAKTID,122);
     if(resp){
         console.log(resp);
     }
