@@ -1,5 +1,5 @@
 import * as Startseite from "./startseite.js";
-import testPostProject from "./apitest.js";
+import * as Apitest from "./apitest.js";
 
 fetch("./lang/" + navigator.language + ".json")
 .then(async (response) => {
@@ -11,7 +11,7 @@ function startup(page) {
     if(page === "startseite") {
         Startseite.loadProjects();
     }
-    testPostProject();
+    Apitest.testPostProject();
 }
 
 window.startup = startup;
