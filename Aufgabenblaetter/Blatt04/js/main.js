@@ -12,6 +12,7 @@ function startup(page) {
         Startseite.loadProjects();
     }
     Apitest.testPostProject();
+    Apitest.testPostAufgabenbereich();
 }
 
 window.startup = startup;
