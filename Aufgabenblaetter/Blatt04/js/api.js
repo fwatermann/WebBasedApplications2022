@@ -74,3 +74,22 @@ export async function postAufgabenbereich(titel,kurzbeschreibung){
             .catch(err => reject(err));
     })
 }
+
+
+export async function postArtefakt(titel,kurzbeschreibung){
+
+    return new Promise((resolve,reject) => {
+        fetch(API_URL + "/artefakte",{
+            method:"POST",
+            body:JSON.stringify({
+                "titel":titel,
+                "kurzbeschreibung":kurzbeschreibung,
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => resolve(response.json()))
+            .catch(err => reject(err));
+    })
+}

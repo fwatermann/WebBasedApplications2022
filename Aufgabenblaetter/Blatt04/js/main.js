@@ -11,8 +11,7 @@ function startup(page) {
     if(page === "startseite") {
         Startseite.loadProjects();
     }
-    Apitest.testPostProject();
-    Apitest.testPostAufgabenbereich();
+    Apitest.doPostTests();
 }
 
 window.startup = startup;
