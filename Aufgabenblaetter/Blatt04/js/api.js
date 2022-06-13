@@ -56,3 +56,21 @@ export async function postProjekt(titel,kurzbeschreibung,logo,projektstart){
     })
 }
 
+
+export async function postAufgabenbereich(titel,kurzbeschreibung){
+    
+    return new Promise((resolve,reject) => {
+        fetch(API_URL + "/aufgabenbereich",{
+            method:"POST",
+            body:JSON.stringify({
+                "titel":titel,
+                "kurzbeschreibung":kurzbeschreibung,
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => resolve(response.json()))
+            .catch(err => reject(err));
+    })
+}
