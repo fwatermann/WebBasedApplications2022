@@ -40,6 +40,5 @@ export function createProjectList(projects) {
         listItem.appendChild(link);
         list.appendChild(listItem);
     }
-    console.log(list);
     return list;
 }
