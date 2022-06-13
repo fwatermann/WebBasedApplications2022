@@ -93,3 +93,19 @@ export async function postArtefakt(titel,kurzbeschreibung){
             .catch(err => reject(err));
     })
 }
+
+export async function setArbeitszeit(projektId, artefaktId, arbeitszeit) {
+        return new Promise((resolve, reject) => {
+            fetch(API_URL + "/projekte/" + projektId + "/artefakte/" + artefaktId + "/arbeitszeit",{
+                method:"PATCH",
+                body:JSON.stringify({
+                    "arbeitszeit":arbeitszeit,
+                }),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(resolve(true))
+            .catch(err => reject(err));
+        });
+}

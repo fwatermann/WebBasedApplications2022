@@ -1,6 +1,7 @@
 package de.fhbi.webbasedapps.projektsammlung.rest;
 
 import de.fhbi.webbasedapps.projektsammlung.classes.Projekt_Artefakt;
+import de.fhbi.webbasedapps.projektsammlung.errors.Error400;
 import de.fhbi.webbasedapps.projektsammlung.keys.PK_Projekt_Artefakt;
 import de.fhbi.webbasedapps.projektsammlung.errors.Error404;
 import de.fhbi.webbasedapps.projektsammlung.errors.Error500;
@@ -53,6 +54,36 @@ public class EndpointProjekt_Artefakt {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsonb.toJson(Error500.getInstance())).build();
         }
         return Response.ok(jsonb.toJson(projekt_artefakt)).build();
+    }
+
+    @PATCH
+    @Consumes("application/json")
+    @Path("/{artefaktId}")
+    public Response patchProject_Artefact(@PathParam("projektId") String projektId, @PathParam("artefaktId") String artefaktId, Projekt_Artefakt reference) throws SystemException {
+
+        Projekt_Artefakt refToUpdate = em.find(Projekt_Artefakt.class, new PK_Projekt_Artefakt(projektId, artefaktId));
+        if(refToUpdate == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity(jsonb.toJson(Error404.getInstance())).build();
+        } else {
+            if(reference == null) {
+                return Response.status(Response.Status.BAD_REQUEST).entity(jsonb.toJson(Error400.getInstance())).build();
+            }
+
+            if(reference.getProjekt_id() != null) refToUpdate.setProjekt_id(reference.getProjekt_id());
+            if(reference.getArtefakt_id() != null) refToUpdate.setArtefakt_id(reference.getArtefakt_id());
+            if(reference.getArbeitszeit() != 0) refToUpdate.setArbeitszeit(reference.getArbeitszeit());
+
+            try {
+                utx.begin();
+                em.merge(refToUpdate);
+                utx.commit();
+                return Response.noContent().build();
+            } catch(Exception e) {
+                if(utx.getStatus() == Status.STATUS_ACTIVE) utx.rollback();
+                e.printStackTrace();
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsonb.toJson(Error500.getInstance())).build();
+            }
+        }
     }
 
     @DELETE
