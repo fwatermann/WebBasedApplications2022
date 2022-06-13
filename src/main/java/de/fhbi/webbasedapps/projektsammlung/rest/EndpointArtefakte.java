@@ -67,7 +67,7 @@ public class EndpointArtefakte {
                 e.printStackTrace();
                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsonb.toJson(Error500.getInstance())).build();
             }
-            return Response.ok().build();
+            return Response.ok(jsonb.toJson(a)).build();
         } else {
             return Response.status(Response.Status.BAD_REQUEST).entity(jsonb.toJson(Error400.getInstance())).build();
         }
