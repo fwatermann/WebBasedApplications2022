@@ -34,3 +34,21 @@ export async function getArtefakte(aufgabenbereichId) {
     });
 
 }
+
+
+export async function postProjekt(titel,kurzbeschreibung,logo,projektstart){
+
+    return new Promise((resolve, reject) => {
+        fetch(API_URL + "/projekte",{
+            body:JSON.stringify({
+                "titel":titel,
+                "kurzbeschreibung":kurzbeschreibung,
+                "logo":logo,
+                "projektstart":projektstart
+            })
+        })
+            .then(response => resolve(response.json()))
+            .catch(err => reject(err));
+    })
+}
+

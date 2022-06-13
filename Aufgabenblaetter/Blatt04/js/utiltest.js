@@ -1,6 +1,6 @@
 import { Artefakt, Projekt } from "./models.js";
 import { calcProjectRuntime,sortProjects } from "./util.js";
-
+    
 
 export function calcProjectRuntimeTest(){
     let artefact1 = new Artefakt(0,0,"Artefakt 1","dies ist das erste Artefakt :D",420);
@@ -13,3 +13,4 @@ export function calcProjectRuntimeTest(){
 
     console.log(calcProjectRuntime(testProject));
 }
+
