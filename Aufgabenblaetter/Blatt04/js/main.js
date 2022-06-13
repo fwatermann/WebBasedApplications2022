@@ -12,6 +12,9 @@ function startup(page) {
         Startseite.loadProjects();
     }
     Apitest.doPostTests();
+    Apitest.doGetTestByProjectID();
+    Apitest.doGetTestAll();
+    Apitest.testSetArbeitsZeit();
 }
 
 window.startup = startup;

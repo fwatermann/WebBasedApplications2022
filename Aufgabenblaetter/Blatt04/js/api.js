@@ -13,6 +13,26 @@ export async function getProjekte() {
 
 }
 
+export async function getProjektById(id){
+    
+    return new Promise((resolve, reject) => {
+        fetch(API_URL + "/projekte/"+id)
+            .then(response => response.json())
+            .then(data => resolve(data))
+            .catch(err => reject(err));
+    });
+}
+
+export async function getAllAufgabenbereiche(){
+
+    return new Promise((resolve, reject) => {
+        fetch(API_URL + "/projekte")
+            .then(response => response.json())
+            .then(data => resolve(data))
+            .catch(err => reject(err));
+    });
+}
+
 export async function getAufgabenbereiche(projektId) {
 
     return new Promise((resolve, reject) => {
@@ -22,6 +42,16 @@ export async function getAufgabenbereiche(projektId) {
             .catch(err => reject(err));
     });
 
+}
+
+export async function getAllArtefakte() {
+
+    return new Promise((resolve, reject) => {
+        fetch(API_URL + "/projekte")
+            .then(response => response.json())
+            .then(data => resolve(data))
+            .catch(err => reject(err));
+    });
 }
 
 export async function getArtefakte(aufgabenbereichId) {
@@ -93,6 +123,7 @@ export async function postArtefakt(titel,kurzbeschreibung){
             .catch(err => reject(err));
     })
 }
+
 
 export async function setArbeitszeit(projektId, artefaktId, arbeitszeit) {
         return new Promise((resolve, reject) => {
