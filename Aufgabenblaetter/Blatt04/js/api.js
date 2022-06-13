@@ -7,8 +7,30 @@ export async function getProjekte() {
     return new Promise((resolve, reject) => {
         fetch(API_URL + "/projekte")
             .then(response => response.json())
-            .then(resolve(data))
-            .catch(reject(err));
+            .then(data => resolve(data))
+            .catch(err => reject(err));
+    });
+
+}
+
+export async function getAufgabenbereiche(projektId) {
+
+    return new Promise((resolve, reject) => {
+        fetch(API_URL + "/projekte/" + projektId + "/aufgabenbereiche")
+            .then(response => response.json())
+            .then(data => resolve(data))
+            .catch(err => reject(err));
+    });
+
+}
+
+export async function getArtefakte(aufgabenbereichId) {
+
+    return new Promise((resolve, reject) => {
+        fetch(API_URL + "/projekte/" + aufgabenbereichId + "/artefakte")
+            .then(response => response.json())
+            .then(data => resolve(data))
+            .catch(err => reject(err));
     });
 
 }

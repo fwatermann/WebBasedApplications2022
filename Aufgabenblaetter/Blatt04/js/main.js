@@ -1,5 +1,6 @@
 import * as Models from "./models.js";
 import * as API from "./api.js";
+import * as Util from "./util.js";
 import {calcProjectRuntimeTest} from "./utiltest.js";
 
 fetch("./lang/" + navigator.language + ".json")
@@ -7,10 +8,6 @@ fetch("./lang/" + navigator.language + ".json")
     console.log(await response.json());
 });
 
-let t = async ()=> {
-    console.log("TEST");
-    console.log(await API.getProjekte());
-};
-t();
+document.getElementById("project_list").innerHTML = Util.createProjectList(await API.getProjekte()).innerHTML;
 
 calcProjectRuntimeTest();

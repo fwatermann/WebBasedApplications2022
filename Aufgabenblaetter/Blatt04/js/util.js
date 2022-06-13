@@ -29,3 +29,17 @@ export function sortProjects(projects, sortBy) {
     }
 
 }
+
+export function createProjectList(projects) {
+    let list = document.createElement("ul");
+    for(let i = 0;i<projects.length;i++){
+        let listItem = document.createElement("li");
+        let link = document.createElement("a");
+        link.href = "./projekt.html?id=" + projects[i].id;
+        link.innerHTML = projects[i].titel;
+        listItem.appendChild(link);
+        list.appendChild(listItem);
+    }
+    console.log(list);
+    return list;
+}
