@@ -46,7 +46,10 @@ export async function postProjekt(titel,kurzbeschreibung,logo,projektstart){
                 "kurzbeschreibung":kurzbeschreibung,
                 "logo":logo,
                 "projektstart":projektstart
-            })
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
         })
             .then(response => resolve(response.json()))
             .catch(err => reject(err));
