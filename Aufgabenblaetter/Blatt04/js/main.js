@@ -1,6 +1,3 @@
-import * as Models from "./models.js";
-import * as API from "./api.js";
-import * as Util from "./util.js";
 import * as Startseite from "./startseite.js";
 
 fetch("./lang/" + navigator.language + ".json")
