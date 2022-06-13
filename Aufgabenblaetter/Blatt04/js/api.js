@@ -96,7 +96,7 @@ export async function postArtefakt(titel,kurzbeschreibung){
 
 export async function setArbeitszeit(projektId, artefaktId, arbeitszeit) {
         return new Promise((resolve, reject) => {
-            fetch(API_URL + "/projekte/" + projektId + "/artefakte/" + artefaktId + "/arbeitszeit",{
+            fetch(API_URL + "/projekte/" + projektId + "/artefakte/" + artefaktId,{
                 method:"PATCH",
                 body:JSON.stringify({
                     "arbeitszeit":arbeitszeit,
