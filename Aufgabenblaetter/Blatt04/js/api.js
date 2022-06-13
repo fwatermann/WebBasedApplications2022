@@ -40,6 +40,7 @@ export async function postProjekt(titel,kurzbeschreibung,logo,projektstart){
 
     return new Promise((resolve, reject) => {
         fetch(API_URL + "/projekte",{
+            method:"POST",
             body:JSON.stringify({
                 "titel":titel,
                 "kurzbeschreibung":kurzbeschreibung,
